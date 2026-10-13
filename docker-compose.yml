@@ -1,0 +1,11 @@
+services:
+  biowatchdog:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      PORT: 8080
+      BIOWATCHDOG_WINDOW_SIZE: 120
+      BIOWATCHDOG_MIN_EVENTS: 30
+      BIOWATCHDOG_MODEL_PATH: ${BIOWATCHDOG_MODEL_PATH:-}
+    restart: unless-stopped

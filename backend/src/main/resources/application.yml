@@ -1,0 +1,21 @@
+server:
+  port: ${PORT:8080}
+  error:
+    include-message: never
+spring:
+  application:
+    name: BioWatchDog
+  web:
+    resources:
+      cache:
+        cachecontrol:
+          no-store: true
+biowatchdog:
+  model-path: ${BIOWATCHDOG_MODEL_PATH:}
+  window-size: ${BIOWATCHDOG_WINDOW_SIZE:120}
+  min-events: ${BIOWATCHDOG_MIN_EVENTS:30}
+  step-up-threshold: ${BIOWATCHDOG_STEP_UP_THRESHOLD:0.70}
+logging:
+  level:
+    root: INFO
+    com.biowatchdog: INFO

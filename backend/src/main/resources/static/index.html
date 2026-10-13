@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self' ws://localhost:8080 ws://127.0.0.1:8080 wss:; img-src 'self' data:; base-uri 'none'; object-src 'none'; frame-ancestors 'none'">
+  <title>BioWatchDog — Behavioral Risk Demo</title>
+  <link rel="stylesheet" href="/app.css">
+  <script defer src="/app.js"></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <p class="eyebrow">CONTINUOUS AUTHENTICATION · RESEARCH DEMO</p>
+      <h1>Bio<span>Watch</span>Dog</h1>
+      <p class="lede">A second signal for session risk — never a replacement for secure authentication.</p>
+    </header>
+    <section class="notice" aria-label="Privacy notice">
+      <strong>Privacy by design</strong>
+      <p>This demo records only key press/release timing and pointer movement while active. It does not read key values, typed text, form fields, passwords, or clipboard. Events are sent to the local server for in-memory processing and discarded when the connection closes. Start only if you consent.</p>
+    </section>
+    <section class="panel controls">
+      <div><span class="label">COLLECTION</span><h2 id="collectionState">Stopped</h2></div>
+      <div class="actions"><button id="startBtn">Start demo</button><button id="stopBtn" class="secondary" disabled>Stop & discard</button></div>
+      <p id="status" class="status" role="status">No telemetry is being collected.</p>
+    </section>
+    <section class="metrics" aria-label="Live counters">
+      <article class="metric"><span class="label">EVENTS SENT</span><strong id="eventCount">0</strong><small>Since this connection</small></article>
+      <article class="metric"><span class="label">SLIDING WINDOW</span><strong id="windowCount">0 / 120</strong><small>Bounded recent events</small></article>
+      <article class="metric"><span class="label">ML STATUS</span><strong id="modelStatus">Checking</strong><small>No fake score fallback</small></article>
+    </section>
+    <section class="panel result">
+      <span class="label">POLICY SIGNAL</span><h2 id="policyTitle">Waiting for opt-in</h2><p id="policyMessage">The app stays stopped until you start the demo.</p><div id="actionPill" class="pill neutral">COLLECTION STOPPED</div>
+    </section>
+    <section class="panel how">
+      <h2>What happens under the hood?</h2>
+      <div class="steps"><div><b>01</b><strong>Browser</strong><p>Collects timing and normalized pointer vectors during opt-in.</p></div><div><b>02</b><strong>Java gateway</strong><p>Validates payloads and builds a bounded sliding window.</p></div><div><b>03</b><strong>ONNX runtime</strong><p>Runs a configured encoder; enrollment comparison is a later milestone.</p></div><div><b>04</b><strong>Risk policy</strong><p>Reports missing data/model honestly and leaves normal authentication in control.</p></div></div>
+    </section>
+    <footer>BioWatchDog · MVP · Not for production authentication decisions</footer>
+  </main>
+</body>
+</html>
