@@ -49,7 +49,10 @@ public class TelemetryWebSocketHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         String id = sessionToId.get(session.getId());
         if (id == null) { session.close(CloseStatus.BAD_DATA); return; }
-        if (message.getPayloadLength() > 4096) { session.close(CloseStatus.TOO_BIG); return; }
+        if (message.getPayloadLength() > 4096) {
+    session.close(new CloseStatus(1009, "Payload too large"));
+    return;
+}
         try {
             TelemetryEvent event = mapper.readValue(message.getPayload(), TelemetryEvent.class);
             validate(event);
